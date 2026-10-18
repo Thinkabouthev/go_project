@@ -1,15 +1,11 @@
 # Text & Password Analyzer (Checkpoint 1)
 
-**Course:** Golang Application Development (KBTU)  
-**Go Version:** 1.27 (Standard Library only)
-
----
-
 ## 1. Project Overview
 
 This project is an in-memory Text & Password Analyzer built for Checkpoint 1. It calculates basic metrics for text strings and passwords without any external dependencies, databases, or HTTP servers.
 
 ### Main Components
+
 - **`model.go`**: Contains the `Task` and `TextResult` structures, status constants (`PENDING`, `COMPLETED`), and domain errors.
 - **`repository.go`**: `TaskRepository` interface and `InMemoryRepository` implementation using a `map[string]*Task`.
 - **`processor.go`**: `TaskProcessor` interface and `TextProcessor` implementation that validates input, calculates metrics, and updates task status.
@@ -43,21 +39,25 @@ cd ~/Downloads/KBTU2025-2026/go_project
 ```
 
 ### Check code formatting:
+
 ```bash
 gofmt -l .
 ```
 
 ### Run static analyzer (linter):
+
 ```bash
 go vet ./...
 ```
 
 ### Run unit tests:
+
 ```bash
 go test -v ./...
 ```
 
 ### Run the program:
+
 ```bash
 go run .
 ```
