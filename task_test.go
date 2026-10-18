@@ -6,7 +6,6 @@ import (
 	"time"
 )
 
-// 1. Тест успешной обработки и правильности подсчета метрик
 func TestProcessSuccess(t *testing.T) {
 	repo := NewInMemoryRepository()
 	processor := NewTextProcessor(repo)
@@ -36,14 +35,12 @@ func TestProcessSuccess(t *testing.T) {
 		t.Errorf("expected IsSecure to be true for 17 chars")
 	}
 
-	// Проверяем, что таска обновилась и в репозитории
 	saved, _ := repo.GetByID("1")
 	if saved.Status != StatusCompleted {
 		t.Errorf("expected repo status %s, got %s", StatusCompleted, saved.Status)
 	}
 }
 
-// 2. Table-driven test: проверка отклонения невалидного входа (пустая строка и пробелы)
 func TestEmptyInputValidation(t *testing.T) {
 	repo := NewInMemoryRepository()
 	processor := NewTextProcessor(repo)
@@ -74,7 +71,6 @@ func TestEmptyInputValidation(t *testing.T) {
 	}
 }
 
-// 3. Тест получения таски по ID и ошибки ErrTaskNotFound
 func TestRepositoryGetByID(t *testing.T) {
 	repo := NewInMemoryRepository()
 
@@ -85,7 +81,6 @@ func TestRepositoryGetByID(t *testing.T) {
 	}
 	repo.Save(task)
 
-	// Успешный поиск
 	found, err := repo.GetByID("100")
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -94,14 +89,12 @@ func TestRepositoryGetByID(t *testing.T) {
 		t.Errorf("expected ID 100, got %s", found.ID)
 	}
 
-	// Ошибка при поиске несуществующего ID
 	_, err = repo.GetByID("non-existent")
 	if !errors.Is(err, ErrTaskNotFound) {
 		t.Errorf("expected ErrTaskNotFound, got %v", err)
 	}
 }
 
-// 4. Тест запрета повторной обработки уже завершенной таски
 func TestAlreadyDoneError(t *testing.T) {
 	repo := NewInMemoryRepository()
 	processor := NewTextProcessor(repo)
